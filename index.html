@@ -752,4 +752,12 @@ function toggleRegion(el) {
 
 function switchCountry() {
   const country = document.getElementById('countrySelect').value;
-  renderMap(count
+  renderMap(country);
+  document.getElementById('mapSourceCz').style.display = country === 'cz' ? 'block' : 'none';
+  document.getElementById('mapSourceSk').style.display = country === 'sk' ? 'block' : 'none';
+}
+
+renderMap('cz');
+</script>
+</body>
+</html>
