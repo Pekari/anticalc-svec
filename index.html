@@ -657,6 +657,12 @@ function validateForm(e) {
   return true; // Allow FormSubmit to handle the POST
 }
 
+// Set _next dynamically to prevent Cloudflare interference
+document.getElementById('contactForm').addEventListener('submit', function() {
+  var nextField = this.querySelector('[name="_next"]');
+  if (nextField) nextField.value = 'https://pekari.github.io/anticalc-svec/dekujeme.html';
+});
+
 // Remove error on input
 document.querySelectorAll('#contactForm [required]').forEach(field => {
   field.addEventListener('input', () => {
@@ -746,12 +752,4 @@ function toggleRegion(el) {
 
 function switchCountry() {
   const country = document.getElementById('countrySelect').value;
-  renderMap(country);
-  document.getElementById('mapSourceCz').style.display = country === 'cz' ? 'block' : 'none';
-  document.getElementById('mapSourceSk').style.display = country === 'sk' ? 'block' : 'none';
-}
-
-renderMap('cz');
-</script>
-</body>
-</html>
+  renderMap(count
