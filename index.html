@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANTICALC® – Fyzikální úpravna vody | Václav Švec – prodejce ANTICALC®</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0B1D33;
+    --deep-blue: #132D4F;
+    --teal: #1B7A6E;
+    --teal-light: #2AA89A;
+    --sky: #DAEEF4;
+    --ice: #E0E8ED;
+    --gold: #C8963E;
+    --gold-light: #E0B867;
+    --text: #1A2B3C;
+    --text-light: #5A6B7C;
+    --white: #FFFFFF;
+    --warm: #F7F8FA;
+    --border: #D4DEE6;
+    --shadow: 0 4px 24px rgba(11,29,51,0.08);
+    --shadow-lg: 0 12px 48px rgba(11,29,51,0.12);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text); background: var(--white);
+    line-height: 1.7; font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'DM Serif Display', serif; line-height: 1.25; color: var(--navy); }
+  p, .faq-answer p, .benefit p, .problem-item p, .step p, .health-text p, .mineral-desc, .hardness-info, .form-note, .hero-card-footer {
+    text-align: justify;
+    hyphens: none;
+    -webkit-hyphens: none;
+  }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(212,222,230,0.5); transition: box-shadow 0.3s; }
+  nav.scrolled { box-shadow: var(--shadow); }
+  .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 2rem; }
+  .nav-brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--navy); }
+  .nav-brand-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--teal), var(--teal-light)); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1rem; }
+  .nav-brand-text { font-family: 'DM Serif Display', serif; font-size: 1.15rem; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-light); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-cta { background: var(--gold); color: var(--navy) !important; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 600; transition: all 0.2s; }
+  .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .hamburger { display: none; background: none; border: none; cursor: pointer; width: 28px; height: 20px; position: relative; }
+  .hamburger span { display: block; width: 100%; height: 2px; background: var(--navy); position: absolute; left: 0; transition: 0.3s; }
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 9px; }
+  .hamburger span:nth-child(3) { top: 18px; }
+
+  /* HERO */
+  .hero { padding: 8rem 2rem 5rem; background: linear-gradient(170deg, var(--navy) 0%, var(--deep-blue) 60%, var(--teal) 100%); color: white; position: relative; overflow: hidden; min-height: auto; display: flex; align-items: center; }
+  .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 800px; height: 800px; background: radial-gradient(circle, rgba(27,122,110,0.25) 0%, transparent 70%); border-radius: 50%; }
+  .hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; z-index: 1; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1.5rem; backdrop-filter: blur(8px); }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); color: white; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
+  .hero h1 em { font-style: normal; color: white; }
+  .hero p { font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.8); margin-bottom: 2rem; max-width: 720px; text-align: center !important; }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.75rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.25s; cursor: pointer; border: none; }
+  .btn-primary { background: var(--gold); color: var(--navy); }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,150,62,0.3); }
+  .btn-outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.3); }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); }
+  .hero-visual { display: flex; align-items: center; justify-content: center; }
+  .hero-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(16px); width: 100%; max-width: 420px; }
+  .hero-card-icon { width: 56px; height: 56px; background: linear-gradient(135deg, var(--teal-light), var(--gold)); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.5rem; }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .hero-stat { text-align: center; }
+  .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--gold-light); }
+  .hero-stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 0.25rem; }
+  .hero-card-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 1.5rem 0; }
+  .hero-card-footer { font-size: 0.85rem; color: rgba(255,255,255,0.65); text-align: center !important; }
+
+  /* GUARANTEE BANNER */
+  .guarantee-banner {
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 3rem;
+    padding: 0.75rem 2rem; font-weight: 600; font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+  .guarantee-banner span { font-weight: 400; opacity: 0.8; }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; border-top: 1px solid rgba(0,0,0,0.04); }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-label { display: inline-block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); margin-bottom: 0.75rem; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 1rem; }
+  .section-subtitle { font-size: 1.05rem; color: var(--text-light); max-width: 100%; line-height: 1.8; }
+
+  /* PROBLEM */
+  .problem { background: var(--ice); }
+  .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+  .problem-list { display: contents; }
+  .problem-item { display: flex; gap: 1rem; background: var(--white); padding: 1.25rem 1.5rem; border-radius: 12px; box-shadow: var(--shadow); border-left: 4px solid var(--gold); }
+  .problem-icon { flex-shrink: 0; width: 44px; height: 44px; background: linear-gradient(135deg, #FFF3E0, #FFE0B2); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .problem-item h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .problem-item p { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; }
+
+  /* MAP */
+  .map-section { background: var(--sky); padding: 5rem 2rem 2rem; }
+  .map-container { max-width: 1200px; margin: 0 auto; }
+  .map-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+  .map-select { padding: 0.5rem 1.25rem 0.5rem 0.75rem; border: 1.5px solid rgba(11,29,51,0.25); border-radius: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.88rem; font-weight: 500; background: rgba(255,255,255,0.7); color: var(--navy); cursor: pointer; transition: all 0.2s; }
+  .map-select:hover, .map-select:focus { border-color: var(--teal); background: rgba(255,255,255,0.95); outline: none; }
+  .map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; }
+  .map-region {
+    padding: 1rem 1.25rem; border-radius: 10px; cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.25s; position: relative;
+  }
+  .map-region:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .map-region.active { border-color: var(--navy); box-shadow: var(--shadow-lg); }
+  .map-region-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+  .map-region-name { font-weight: 600; font-size: 0.88rem; color: var(--navy); margin-bottom: 0.25rem; }
+  .map-region-value { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--navy); }
+  .map-region-cat { font-size: 0.75rem; font-weight: 500; margin-top: 0.15rem; }
+  .map-info-btn {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(11,29,51,0.2);
+    background: rgba(255,255,255,0.7);
+    color: var(--text-light);
+    font-size: 0.72rem; font-weight: 700;
+    font-family: 'DM Serif Display', serif; font-style: italic;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .map-info-btn:hover, .map-region.active .map-info-btn {
+    background: var(--navy); color: white; border-color: var(--navy);
+  }
+  .map-region-note {
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.25s ease, margin 0.3s ease, padding 0.3s ease;
+    font-size: 0.78rem; line-height: 1.55;
+    color: var(--text); background: rgba(255,255,255,0.6);
+    border-radius: 6px; padding: 0;
+    margin-top: 0;
+  }
+  .map-region.active .map-region-note {
+    max-height: 500px; opacity: 1;
+    padding: 0.75rem 0.85rem 0.85rem;
+    margin-top: 0.6rem;
+  }
+  .cat-soft { color: #1565C0; }
+  .cat-medium { color: #E65100; }
+  .cat-hard { color: #C62828; }
+  .cat-very-hard { color: #B71C1C; }
+  .bg-soft { background: #BBDEFB; }
+  .bg-medium { background: #FFE0B2; }
+  .bg-hard { background: #FFCCBC; }
+  .bg-very-hard { background: #EF9A9A; }
+  .map-legend { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: var(--text-light); }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .map-source { margin-top: 1rem; margin-bottom: 2rem; font-size: 0.72rem; color: var(--text-light); line-height: 1.6; }
+  .map-source a { color: var(--teal); text-decoration: underline; }
+
+  /* HARDNESS SCALE (kept from problem section) */
+  .problem-visual { background: var(--white); border-radius: 16px; padding: 2.5rem; box-shadow: var(--shadow-lg); }
+  .hardness-bar { height: 12px; background: linear-gradient(90deg, #81D4FA, #4FC3F7, #FFD54F, #FF8A65, #E57373); border-radius: 100px; position: relative; margin-bottom: 0.5rem; }
+  .hardness-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-light); font-weight: 500; }
+  .hardness-info { margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--sky); border-radius: 10px; font-size: 0.88rem; color: var(--text); line-height: 1.7; }
+  .hardness-info strong { color: var(--teal); }
+
+  /* HOW IT WORKS */
+  .how-it-works { background: var(--warm); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; align-items: stretch; }
+  .step { background: var(--ice); border-radius: 16px; padding: 2rem; transition: transform 0.3s, box-shadow 0.3s; }
+  .step:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .step-num { width: 40px; height: 40px; background: var(--navy); color: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1rem; }
+  .step-img { width: 100%; height: auto; margin: 0.5rem 0; }
+  .step h3 { font-size: 1.2rem; margin-bottom: 0.75rem; padding-top: 0.75rem; align-self: end; }
+  .step p { font-size: 0.92rem; color: var(--text-light); line-height: 1.7; }
+
+  /* BENEFITS */
+  .benefits { background: var(--navy); color: white; }
+  .benefits .section-label { color: var(--gold-light); }
+  .benefits .section-title { color: white; }
+  .benefits .section-subtitle { color: rgba(255,255,255,0.7); }
+  .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .benefit { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.75rem; transition: background 0.3s; }
+  .benefit:hover { background: rgba(255,255,255,0.08); }
+  .benefit-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--teal), var(--teal-light)); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 1rem; }
+  .benefit h4 { font-family: 'Plus Jakarta Sans', sans-serif; color: white; font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .benefit p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+  /* HEALTH */
+  .health { background: var(--ice); }
+  .health-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+  .health-text p { font-size: 0.95rem; color: var(--text-light); margin-bottom: 1.25rem; line-height: 1.8; }
+  .health-highlight { background: var(--white); border-radius: 14px; padding: 2rem; box-shadow: var(--shadow); }
+  .health-highlight h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--teal); }
+  .mineral-item { padding: 1rem 0; border-bottom: 1px solid var(--border); }
+  .mineral-item:last-child { border-bottom: none; }
+  .mineral-name { font-weight: 600; color: var(--navy); font-size: 0.95rem; margin-bottom: 0.35rem; }
+  .mineral-desc { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
+  .mineral-dose { display: inline-block; margin-top: 0.35rem; font-size: 0.78rem; font-weight: 600; color: var(--teal); background: rgba(27,122,110,0.08); padding: 0.2rem 0.6rem; border-radius: 6px; }
+
+  /* FAQ */
+  .faq { background: var(--warm); }
+  .faq-list { max-width: 800px; margin: 3rem auto 0; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-question { width: 100%; background: none; border: none; padding: 1.25rem 0; font-size: 1rem; font-weight: 600; color: var(--navy); text-align: left; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-family: 'Plus Jakarta Sans', sans-serif; transition: color 0.2s; }
+  .faq-question:hover { color: var(--teal); }
+  .faq-arrow { flex-shrink: 0; width: 24px; height: 24px; transition: transform 0.3s; color: var(--text-light); }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+  .faq-item.open .faq-answer { max-height: 500px; padding-bottom: 1.25rem; }
+  .faq-answer p { font-size: 0.92rem; color: var(--text-light); line-height: 1.8; }
+
+  /* SPECS */
+  .specs { background: var(--ice); }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+  .spec-card { background: var(--white); border-radius: 14px; padding: 2rem; box-shadow: var(--shadow); }
+  .spec-card h3 { font-size: 1.15rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--teal); }
+  .spec-table { width: 100%; }
+  .spec-table tr { border-bottom: 1px solid var(--border); }
+  .spec-table tr:last-child { border-bottom: none; }
+  .spec-table td { padding: 0.6rem 0; font-size: 0.88rem; vertical-align: top; }
+  .spec-table td:first-child { font-weight: 500; color: var(--text); width: 55%; }
+  .spec-table td:last-child { color: var(--text-light); }
+
+  /* CONTACT */
+  .contact { background: var(--warm); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; }
+  .contact-info-card { background: var(--navy); border-radius: 16px; padding: 2.5rem; color: white; }
+  .contact-info-card h3 { color: white; font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .contact-info-card > p { color: rgba(255,255,255,0.7); font-size: 0.92rem; margin-bottom: 2rem; line-height: 1.7; }
+  .contact-detail { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 0; border-top: 1px solid rgba(255,255,255,0.08); }
+  .contact-detail-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .contact-detail-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+  .contact-detail-value { font-size: 0.95rem; color: white; font-weight: 500; }
+  .contact-detail a { color: white; text-decoration: none; }
+  .contact-detail a:hover { color: var(--gold-light); }
+  .contact-badge { margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,150,62,0.15); border: 1px solid rgba(200,150,62,0.25); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: var(--gold-light); }
+  .form-card { background: var(--ice); border-radius: 16px; padding: 2.5rem; }
+  .form-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+  .form-card > p { font-size: 0.88rem; color: var(--text-light); margin-bottom: 1.5rem; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.35rem; }
+  .form-input, .form-textarea { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; font-size: 0.92rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text); background: var(--white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(27,122,110,0.1); }
+  .form-textarea { resize: vertical; min-height: 110px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit { width: 100%; padding: 0.9rem; background: var(--teal); color: white; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .form-submit:hover { background: var(--teal-light); }
+  .form-note { margin-top: 0.75rem; font-size: 0.78rem; color: var(--text-light); text-align: center !important; }
+  .form-error { display: none; font-size: 0.78rem; color: #D32F2F; margin-top: 0.3rem; font-weight: 500; }
+  .form-group.has-error .form-input,
+  .form-group.has-error .form-textarea { border-color: #D32F2F; box-shadow: 0 0 0 3px rgba(211,47,47,0.1); }
+  .form-group.has-error .form-error { display: block; }
+  .form-success { display: none; text-align: center; padding: 2rem; }
+  .form-success.show { display: block; }
+  .form-success-icon { width: 56px; height: 56px; margin: 0 auto 1rem; background: linear-gradient(135deg, var(--teal), var(--teal-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; }
+  .form-success h4 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+
+  /* FOOTER */
+  footer { background: var(--navy); color: rgba(255,255,255,0.6); padding: 2.5rem 2rem; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-brand { font-family: 'DM Serif Display', serif; font-size: 1rem; color: white; }
+  .footer-legal { font-size: 0.78rem; line-height: 1.6; }
+  .footer-legal a { color: rgba(255,255,255,0.8); text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner { gap: 2rem; }
+    .hero-card { max-width: 100%; }
+    .problem-grid, .health-content, .specs-grid, .contact-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .steps, .benefits-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hamburger { display: block; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: white; padding: 1.5rem 2rem; box-shadow: var(--shadow-lg); gap: 1rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .map-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .animate-in { opacity: 0; animation: fadeUp 0.7s ease forwards; display: flex; flex-direction: column; align-items: center; width: 100%; }
+  .delay-1 { animation-delay: 0.15s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <span class="nav-brand-text">ANTICALC® &middot; Václav Švec</span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#problem">Tvrdost vody</a></li>
+      <li><a href="#how">Jak to funguje</a></li>
+      <li><a href="#benefits">Výhody</a></li>
+      <li><a href="#health">Zdraví</a></li>
+      <li><a href="#faq">Časté dotazy</a></li>
+      <li><a href="#contact" class="nav-cta">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<!-- GUARANTEE BANNER -->
+<div class="guarantee-banner" style="padding-top:calc(4rem); padding-bottom:0.5rem;">
+  Záruka 5&nbsp;let &nbsp;·&nbsp; Garance vrácení peněz &nbsp;·&nbsp; Životnost 50+&nbsp;let &nbsp;·&nbsp; Nulové provozní náklady
+</div>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:2.5rem; padding-bottom:3rem;">
+  <div class="hero-inner">
+    <div class="animate-in">
+      <h1>Konec problémů s&nbsp;<em>vodním kamenem</em></h1>
+      <div style="margin:1.5rem 0 2rem;">
+        <img src="anticalc-product.png" alt="Fyzikální úpravna vody ANTICALC®" style="max-width:460px; width:100%; height:auto; filter:drop-shadow(0 8px 24px rgba(0,0,0,0.3));">
+      </div>
+      <p style="margin-left:auto; margin-right:auto;">Fyzikální úpravna vody ANTICALC® chrání Vaše spotřebiče, rozvody i&nbsp;zdraví celé rodiny. Bez chemie, bez údržby, se&nbsp;zárukou 5&nbsp;let a&nbsp;garancí vrácení peněz.</p>
+      <div class="hero-buttons">
+        <a href="#how" class="btn btn-outline">Jak to funguje</a>
+        <a href="#contact" class="btn btn-primary">Nezávazná konzultace</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="container">
+    <span class="section-label">Problém tvrdé vody</span>
+    <h2 class="section-title">Tvrdost vody – proč ji řešit?</h2>
+    <p class="section-subtitle">Tvrdost vody je ukazatel obsahu minerálních látek, především vápníku. Čím vyšší obsah, tím intenzivnější tvorba vodního kamene a&nbsp;vyšší náklady na provoz domácnosti.</p>
+    <div class="problem-grid">
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-icon">⚡</div>
+          <div><h4>Vyšší náklady na energii</h4><p>Již tenká vrstva vodního kamene na topném tělese funguje jako izolant. Ohřev vody spotřebuje až o&nbsp;30&nbsp;% více energie – v&nbsp;praxi to znamená stovky korun měsíčně navíc.</p></div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">🔧</div>
+          <div><h4>Poškození spotřebičů a&nbsp;rozvodů</h4><p>Vodní kámen ucpává trysky, ničí těsnění a&nbsp;zkracuje životnost praček, myček, bojlerů i&nbsp;vodovodních baterií. Opravy a&nbsp;výměny přitom stojí tisíce korun.</p></div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">💧</div>
+          <div><h4>Únik vody a&nbsp;další ztráty</h4><p>Kapající kohoutky a&nbsp;protékající splachovadla jsou typickým důsledkem vodního kamene. Při ceně okolo 130&nbsp;Kč za kubík jde o&nbsp;nemalou finanční ztrátu.</p></div>
+        </div>
+        <div class="problem-item">
+          <div class="problem-icon">🧴</div>
+          <div><h4>Dopad na hygienu a&nbsp;komfort</h4><p>Tvrdá voda způsobuje povlak na nádobí, stopy na sanitárním vybavení, snižuje pěnivost mýdla a&nbsp;nepříznivě působí na pokožku i&nbsp;vlasy.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERACTIVE MAP -->
+<section class="map-section" id="map">
+  <div class="map-container">
+    <div class="map-header" style="flex-direction:column; align-items:stretch;">
+      <span class="section-label">Tvrdost vody podle krajů</span>
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+        <h2 class="section-title" style="margin-bottom:0;">Tvrdost vody ve Vašem kraji</h2>
+        <select class="map-select" id="countrySelect" onchange="switchCountry()">
+          <option value="cz">Česká republika</option>
+          <option value="sk">Slovensko</option>
+        </select>
+      </div>
+      <p class="section-subtitle" style="margin-top:0.75rem;">Tvrdost se vyjadřuje v&nbsp;mmol/l. Většina území ČR má vodu se střední až vysokou tvrdostí. Na Slovensku převládá voda tvrdá až velmi tvrdá.</p>
+    </div>
+    <div class="map-grid" id="mapGrid"></div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#BBDEFB;"></div> Měkká (&lt;&nbsp;1,42)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FFE0B2;"></div> Středně tvrdá (1,42&nbsp;–&nbsp;2,10)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FFCCBC;"></div> Tvrdá (2,10&nbsp;–&nbsp;3,75)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#EF9A9A;"></div> Velmi tvrdá (&gt;&nbsp;3,75)</div>
+      <div class="legend-item" style="margin-left:auto; font-style:italic;">Hodnoty v&nbsp;mmol/l · orientační průměry</div>
+    </div>
+    <div class="map-source" id="mapSourceCz">
+      <strong>Zdroje dat (ČR):</strong>
+      <a href="https://www.pvk.cz/vse-o-vode/pitna-voda/" target="_blank" rel="noopener">Pražské vodovody a&nbsp;kanalizace</a>,
+      <a href="https://www.svas.cz/vse-o-vode/pitna-voda/vlastnosti-vody/tvrdost-vody/" target="_blank" rel="noopener">Středočeské vodárny</a>,
+      <a href="https://www.jvs.cz/voda-faq" target="_blank" rel="noopener">Jihočeský vodárenský svaz</a>,
+      <a href="https://www.vodarna.cz/tvrdost-vody/" target="_blank" rel="noopener">Vodárna Plzeň</a>,
+      <a href="https://www.1scv.cz/vse-o-vode/pitna-voda/vlastnosti-vody/tvrdost-vody-clanek/" target="_blank" rel="noopener">1.&nbsp;SčV</a>,
+      <a href="https://www.ovak.cz/kval_pitvody/" target="_blank" rel="noopener">OVaK Ostrava</a>,
+      <a href="https://www.khp.cz/vse-o-vode/kvalita-vody/tvrdost-vody/" target="_blank" rel="noopener">KHP Hradec Králové</a>,
+      <a href="https://www.ravos-sro.cz/vse-o-vode/pitna-voda/vlastnosti-vody/tvrdost-vody/" target="_blank" rel="noopener">RAVOS Rakovník</a>,
+      <a href="https://www.cistavoda.cz/blog/mapa-tvrdosti-vody-v-cr/" target="_blank" rel="noopener">ČistáVoda.cz</a>.
+      <br>Uvedené hodnoty jsou orientační průměry pro daný kraj; skutečná tvrdost se může lišit dle konkrétní lokality a&nbsp;zdroje vody. Pro přesné zjištění doporučujeme laboratorní rozbor.
+    </div>
+    <div class="map-source" id="mapSourceSk" style="display:none;">
+      <strong>Zdroje dat (SK):</strong>
+      <a href="https://www.bvsas.sk/kvalita-vody/" target="_blank" rel="noopener">BVS Bratislava</a>,
+      <a href="https://www.zsvs.sk/o-nas/kvalita-vody" target="_blank" rel="noopener">Západoslovenská vodárenská spoločnosť</a>,
+      <a href="https://www.uvzsr.sk/web/ruvzbb/tvrdost-pitnej-vody-vo-verejnych-vodovodoch-v-okresoch-banska-bystrica-a-brezno" target="_blank" rel="noopener">RÚVZ Banská Bystrica</a>,
+      <a href="https://www.cistavoda.sk/blog/mapa-tvrdosti-vody-na-slovensku/" target="_blank" rel="noopener">ČistáVoda.sk</a>,
+      <a href="https://www.aquavia.sk/mapa-tvrdosti-vody" target="_blank" rel="noopener">AquaVia.sk</a>,
+      <a href="https://www.dobryfilter.sk/news/mapa-tvrdosti-vody-na-slovensku" target="_blank" rel="noopener">DobryFilter.sk</a>.
+      <br>Uvedené hodnoty jsou orientační průměry pro daný kraj; skutečná tvrdost se může lišit dle konkrétní lokality a&nbsp;zdroje vody. Pro přesné zjištění doporučujeme laboratorní rozbor.
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how">
+  <div class="container">
+    <span class="section-label">Princip funkce</span>
+    <h2 class="section-title">Jak ANTICALC® funguje</h2>
+    <p class="section-subtitle">Úpravna se instaluje na vstup vody, obvykle za vodoměr nebo na výtlak čerpadla. Montáž je jednoduchá a&nbsp;zařízení nevyžaduje žádnou obsluhu, údržbu ani zdroj energie.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <img src="step1-resonance.png" alt="Magnetická rezonance" class="step-img">
+
+          <h3>Magnetická rezonance</h3>
+          <p>Jakmile voda proteče úpravnou, nastartuje se magnetická rezonance. Velké krystaly vápníku, které způsobují tvrdost vody, se řízeně rozpadají na nanočástice.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <img src="step2-no-adhesion.png" alt="Zánik schopnosti usazování" class="step-img">
+
+          <h3>Zánik schopnosti usazování</h3>
+          <p>Vzniklé nanokrystaly nemají dostatečně velké plochy, aby se na sebe mohly lepit a&nbsp;vrstvit. Vodní kámen tak jednoduše nevzniká.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <img src="step3-cleaning.png" alt="Aktivní čištění rozvodů" class="step-img">
+
+          <h3>Aktivní čištění rozvodů</h3>
+          <p>Nanokrystaly unášené proudem vody působí abrazivně – postupně obrušují a&nbsp;odstraňují stávající nánosy vodního kamene v&nbsp;celém systému rozvodů.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="container">
+    <span class="section-label">Výhody</span>
+    <h2 class="section-title">Proč zvolit ANTICALC®</h2>
+    <p class="section-subtitle">Řešení osvědčené v&nbsp;domácnostech, bytových domech i&nbsp;průmyslových provozech. Se zárukou 5&nbsp;let a&nbsp;garancí úplného vrácení peněz.</p>
+    <div class="benefits-grid">
+      <div class="benefit"><div class="benefit-icon">🛡️</div><h4>Ochrana spotřebičů</h4><p>Životnost praček, myček, bojlerů a&nbsp;kotlů se prodlouží na maximum. Konec nečekaných poruch způsobených vodním kamenem.</p></div>
+      <div class="benefit"><div class="benefit-icon">💰</div><h4>Významná úspora nákladů</h4><p>Odstranění izolačních vrstev na topných tělesech snižuje náklady na ohřev vody. V&nbsp;praxi to představuje stovky korun měsíčně.</p></div>
+      <div class="benefit"><div class="benefit-icon">♻️</div><h4>Nulová údržba a&nbsp;provozní náklady</h4><p>Zařízení nepotřebuje žádný zdroj energie, žádné chemické náplně ani servisní zásahy. Po instalaci pracuje zcela autonomně.</p></div>
+      <div class="benefit"><div class="benefit-icon">🫧</div><h4>Vyčištění stávajících rozvodů</h4><p>Během několika měsíců se nanokrystaly postarají o&nbsp;kompletní vyčištění vnitřních stěn potrubí, stoupaček i&nbsp;teplosměnných ploch.</p></div>
+      <div class="benefit"><div class="benefit-icon">❤️</div><h4>Zachování minerálů ve vodě</h4><p>Na rozdíl od chemických změkčovačů ANTICALC® neodstraňuje z&nbsp;vody vápník ani hořčík – oba prvky zůstávají a&nbsp;slouží Vašemu zdraví.</p></div>
+      <div class="benefit"><div class="benefit-icon">🏗️</div><h4>Životnost na generace</h4><p>Účinnost magnetů klesá za 50&nbsp;let o&nbsp;pouhá cca 4&nbsp;%. Na zařízení poskytujeme plnou záruku 5&nbsp;let s&nbsp;garancí vrácení peněz.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTH -->
+<section class="health" id="health">
+  <div class="container">
+    <span class="section-label">Zdravotní aspekt</span>
+    <h2 class="section-title">Fyzikální úprava vody a&nbsp;Vaše zdraví</h2>
+    <div class="health-content" style="margin-top:1.5rem; align-items:start;">
+      <div class="health-text">
+        <p style="color:var(--text); font-size:1.05rem; margin-bottom:1.5rem;">Zdravotní význam ANTICALC® spočívá především v&nbsp;tom, co z&nbsp;vody neodstraňuje.</p>
+        <p>Při chemickém změkčování vody dochází k&nbsp;odstraňování vápníku a&nbsp;hořčíku – tedy prvků, které jsou pro lidský organismus naprosto nezbytné. To je u&nbsp;pitné vody nepřijatelné.</p>
+        <p>Fyzikální úpravna ANTICALC® pracuje principiálně odlišně. Mění pouze strukturu a&nbsp;velikost krystalů, aniž by z&nbsp;vody cokoliv odebírala. Voda si zachovává všechny zdraví prospěšné vlastnosti a&nbsp;zároveň přestává tvořit škodlivý vodní kámen.</p>
+        <p>Chemické změkčovače navíc vyžadují trvalou odbornou obsluhu – kontrolu tvrdosti na výstupu a&nbsp;pravidelnou regeneraci. Bez kvalifikované údržby může paradoxně dojít k&nbsp;vyplavování minerálů a&nbsp;výsledná voda může být tvrdší než na vstupu.</p>
+      </div>
+      <div class="health-highlight">
+        <h3>Klíčové minerály v&nbsp;pitné vodě</h3>
+        <div class="mineral-item">
+          <div class="mineral-name">Vápník (Ca)</div>
+          <div class="mineral-desc">Nezbytný pro kosti, zuby, nervosvalovou dráždivost, srdeční funkce a&nbsp;srážení krve. Nedostatek se projevuje osteoporózou, osteomalácií či zvýšeným krevním tlakem.</div>
+          <div class="mineral-dose">Min. 800&nbsp;mg / den / osobu</div>
+        </div>
+        <div class="mineral-item">
+          <div class="mineral-name">Hořčík (Mg)</div>
+          <div class="mineral-desc">Kofaktor a&nbsp;aktivátor více než 300 enzymatických reakcí. Podílí se na metabolismu ATP, syntéze proteinů, nervosvalové dráždivosti a&nbsp;působí jako přirozený antagonista vápníku.</div>
+          <div class="mineral-dose">350&nbsp;–&nbsp;400&nbsp;mg / den / dospělou osobu</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <span class="section-label">Časté dotazy</span>
+    <h2 class="section-title" style="text-align:center;">Otázky a&nbsp;odpovědi</h2>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Kam se ANTICALC® montuje?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Zařízení se instaluje na vstup vody do objektu, obvykle za vodoměr, nebo na výtlak čerpadla. Tím je chráněn celý systém rozvodů studené i&nbsp;teplé vody. Lze ho také instalovat cíleně před konkrétní spotřebič.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Jak rychle se projeví účinek?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Struktura vody se mění okamžitě při průtoku zařízením. Kompletní vyčištění stávajících nánosů vodního kamene v&nbsp;rozvodech trvá řádově několik měsíců.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Je nutná údržba nebo výměna náplní?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Ne. ANTICALC® nevyžaduje žádnou údržbu, žádnou obsluhu, žádné náplně ani žádný zdroj energie. Po instalaci pracuje zcela samostatně po celou dobu životnosti.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Jak je ANTICALC® řešen pro větší průměry potrubí?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Pro potrubí o&nbsp;průměru větším než 1" se provádí vícenásobná montáž – jednotlivé kusy úpravny se řadí vedle sebe (paralelně). Tím se sčítá průřez a&nbsp;i&nbsp;ve špičkách je zajištěn potřebný průtok. Jednou úpravnou proteče cca 50&nbsp;l/min, při paralelním zapojení dvou kusů 100&nbsp;l/min atd.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Na co si dát pozor při instalaci?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Pro správnou činnost úpravny je nezbytné, aby ve vodě nebylo přítomno žádné elektrické napětí. To se zajistí dokonalým pospojováním potrubí a&nbsp;uzemněním ve smyslu platných norem. Úpravnu doporučujeme přemostit měděným vodičem o&nbsp;průřezu min. 6&nbsp;mm² a&nbsp;na jedné straně spojit se zemí. Podrobný návod je součástí balení.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Odbourává ANTICALC® chlór?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Ano, úpravna efektivně rozkládá molekuly chlóru. Po úpravě není chlór ve vodě cítit ani chuťově, ani čichově.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Působí ANTICALC® i&nbsp;na vodní sliz a&nbsp;bakterie?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Ano. Vodní sliz je tvořen bakteriemi a&nbsp;řasami. ANTICALC® zabraňuje tvorbě řas a&nbsp;usmrcuje bakterie, čímž pomáhá udržovat celý vodovodní systém v&nbsp;hygienicky bezpečném stavu.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Může být ANTICALC® v&nbsp;blízkosti elektronických zařízení?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Ano. Zařízení má uzavřené magnetické siločáry, takže může být instalováno v&nbsp;těsné blízkosti vodoměru, pračky, kotle i&nbsp;dalších spotřebičů bez jakéhokoliv vzájemného ovlivnění.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Nenaruší upravená voda stěny potrubí?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Ne. Účinnost zařízení je dána hydrodynamickými vlastnostmi pohybující se vody, nikoliv statickými vlastnostmi kovových či plastových trubek. Upravená voda nemá na materiál potrubí žádný negativní vliv.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Jak je to s&nbsp;certifikací?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Zařízení prošlo testováním ve zkušebnách ve Slovenské republice, jejichž atesty jsou v&nbsp;ČR plně uznávány. Všechny produkty splňují technická i&nbsp;hygienická kritéria Evropské unie.</p></div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Je k&nbsp;dispozici záruka vrácení peněz?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer"><p>Ano. Kromě pětileté záruky na zařízení nabízíme rovněž garanci úplného vrácení peněz. Věříme si v&nbsp;kvalitu a&nbsp;účinnost našich produktů natolik, že na sebe bereme veškeré riziko za Vás.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="specs" id="specs">
+  <div class="container">
+    <span class="section-label">Technické údaje</span>
+    <h2 class="section-title">Technické parametry</h2>
+    <div class="specs-grid">
+      <div class="spec-card"><h3>ANTICALC® – na studenou vodu</h3><table class="spec-table">
+        <tr><td>Typ</td><td>P&nbsp;20&nbsp;MM&nbsp;–&nbsp;60°</td></tr>
+        <tr><td>Ø – průměr</td><td>80&nbsp;±&nbsp;2&nbsp;mm</td></tr>
+        <tr><td>L – délka</td><td>316&nbsp;±&nbsp;5&nbsp;mm</td></tr>
+        <tr><td>G – spoj vstupu a&nbsp;výstupu</td><td>3/4" plastová nebo kovová koncovka s&nbsp;vnějším závitem</td></tr>
+        <tr><td>Provozní tlak při teplotě</td><td>23&nbsp;°C – 3,30&nbsp;MPa<br>60&nbsp;°C – 0,72&nbsp;MPa</td></tr>
+        <tr><td>Max. teplota</td><td>60&nbsp;°C</td></tr>
+        <tr><td>Vhodné na potrubí do Ø</td><td>3/4"&nbsp;–&nbsp;1" (nebo dle průtoku, cca 3,5&nbsp;m³/hod.)</td></tr>
+        <tr><td>Údržba</td><td>Nevyžaduje</td></tr>
+        <tr><td>Záruka</td><td>5&nbsp;let + garance vrácení peněz</td></tr>
+      </table></div>
+      <div class="spec-card"><h3>ANTICALC® – na teplou vodu</h3><table class="spec-table">
+        <tr><td>Typ</td><td>P&nbsp;20&nbsp;MM&nbsp;–&nbsp;90°</td></tr>
+        <tr><td>Ø – průměr</td><td>80&nbsp;±&nbsp;2&nbsp;mm</td></tr>
+        <tr><td>L – délka</td><td>301&nbsp;±&nbsp;5&nbsp;mm</td></tr>
+        <tr><td>G – spoj vstupu a&nbsp;výstupu</td><td>3/4" kovová koncovka s&nbsp;vnějším závitem</td></tr>
+        <tr><td>Provozní tlak při teplotě</td><td>23&nbsp;°C – 2,76&nbsp;MPa<br>82&nbsp;°C – 0,69&nbsp;MPa</td></tr>
+        <tr><td>Max. teplota</td><td>90&nbsp;°C</td></tr>
+        <tr><td>Vhodné na potrubí do Ø</td><td>3/4"&nbsp;–&nbsp;1" (nebo dle průtoku, cca 3,5&nbsp;m³/hod.)</td></tr>
+        <tr><td>Údržba</td><td>Nevyžaduje</td></tr>
+        <tr><td>Záruka</td><td>5&nbsp;let + garance vrácení peněz</td></tr>
+      </table></div>
+    </div>
+    <div style="margin-top:1.5rem; padding:1.25rem 1.5rem; background:var(--white); border-radius:12px; box-shadow:var(--shadow); display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+      <div style="width:44px;height:44px;background:linear-gradient(135deg,var(--teal),var(--teal-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">📦</div>
+      <div style="font-size:0.92rem;color:var(--text);line-height:1.6;"><strong>Součástí každého balení</strong> je podrobný návod na montáž a&nbsp;kompletní montážní sada pro snadnou instalaci.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="section-label">Kontakt</span>
+    <h2 class="section-title">Nezávazná konzultace</h2>
+    <p class="section-subtitle">Rád Vám poradím s&nbsp;řešením problémů s&nbsp;tvrdou vodou, připravím cenovou nabídku přímo na míru a&nbsp;poradím s&nbsp;výběrem optimálního řešení pro Váš objekt.</p>
+    <div class="contact-grid">
+      <div class="contact-info-card">
+        <h3>Václav Švec</h3>
+        <p>Autorizovaný prodejce fyzikální úpravny vody ANTICALC® pro ČR a&nbsp;SR.</p>
+        <div class="contact-detail"><div class="contact-detail-icon">🏢</div><div><div class="contact-detail-label">IČO</div><div class="contact-detail-value">123 35 266</div></div></div>
+        <div class="contact-detail"><div class="contact-detail-icon">📍</div><div><div class="contact-detail-label">Sídlo</div><div class="contact-detail-value">Ke&nbsp;Střelnici 130, Hradiště, 397&nbsp;01 Písek</div></div></div>
+        <div class="contact-detail"><div class="contact-detail-icon">📞</div><div><div class="contact-detail-label">Telefon</div><div class="contact-detail-value"><a href="tel:+420775578992">+420&nbsp;775&nbsp;578&nbsp;992</a></div></div></div>
+        <div class="contact-detail"><div class="contact-detail-icon">✉️</div><div><div class="contact-detail-label">E-mail</div><div class="contact-detail-value"><a href="mailto:info@voda-svec.cz">info@voda-svec.cz</a></div></div></div>
+      </div>
+      <div class="form-card">
+        <h3>Napište mi</h3>
+        <p>Vyplňte formulář a&nbsp;já se Vám ozvu nejpozději nejbližší následující pracovní den.</p>
+        <form id="contactForm" action="https://formsubmit.co/7ae41385b14dbb12b40c3a74d9e7f763" method="POST" novalidate onsubmit="return validateForm(event)">
+          <!-- FormSubmit hidden fields -->
+          <input type="hidden" name="_subject" value="Nová poptávka z webu voda-svec.cz">
+          <input type="hidden" name="_next" value="https://pekari.github.io/anticalc-svec/dekujeme.html">
+          <input type="hidden" name="_autoresponse" value="">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="true">
+          <input type="text" name="_honey" style="display:none">
+          <div class="form-row">
+            <div class="form-group"><label class="form-label" for="name">Jméno a&nbsp;příjmení *</label><input class="form-input" type="text" id="name" name="name" required placeholder="Jan Novák"><span class="form-error">Prosím vyplňte jméno a&nbsp;příjmení.</span></div>
+            <div class="form-group"><label class="form-label" for="phone">Telefon</label><input class="form-input" type="tel" id="phone" name="phone" placeholder="+420 xxx xxx xxx"></div>
+          </div>
+          <div class="form-group"><label class="form-label" for="email">E-mail *</label><input class="form-input" type="email" id="email" name="email" required placeholder="jan.novak@seznam.cz"><span class="form-error">Prosím vyplňte platnou e-mailovou adresu.</span></div>
+          <div class="form-group"><label class="form-label" for="message">Vaše zpráva *</label><textarea class="form-textarea" id="message" name="message" required placeholder="Popište prosím Vaši situaci – typ objektu, známá tvrdost vody, aktuální problémy…"></textarea><span class="form-error">Prosím napište Vaši zprávu.</span></div>
+          <button type="submit" class="form-submit">Odeslat</button>
+          <p class="form-note">Pole označená * jsou povinná.<br>Vaše údaje zpracováváme výhradně za účelem zodpovězení Vašeho dotazu.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Václav Švec · ANTICALC®</div>
+    <div class="footer-legal">IČO: 123 35 266 · Autorizovaný prodejce produktů ANTICALC®<br>ANTICALC® je registrovaná ochranná známka společnosti GEO&nbsp;CENTRUM&nbsp;s.r.o.</div>
+  </div>
+</footer>
+
+<script>
+// NAV
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('open')));
+
+// SMOOTH SCROLLING with nav offset
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    const target = document.querySelector(targetId);
+    if (!target) return;
+    e.preventDefault();
+    const navHeight = document.getElementById('nav').offsetHeight;
+    const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+    window.scrollTo({ top: targetPos, behavior: 'smooth' });
+  });
+});
+
+// FAQ
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// FORM VALIDATION (FormSubmit handles submission)
+function validateForm(e) {
+  const form = document.getElementById('contactForm');
+  const required = form.querySelectorAll('[required]');
+  let valid = true;
+
+  form.querySelectorAll('.form-group').forEach(g => g.classList.remove('has-error'));
+
+  required.forEach(field => {
+    const group = field.closest('.form-group');
+    let fieldValid = true;
+
+    if (!field.value.trim()) {
+      fieldValid = false;
+    } else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim())) {
+      fieldValid = false;
+    }
+
+    if (!fieldValid) {
+      group.classList.add('has-error');
+      valid = false;
+    }
+  });
+
+  if (!valid) {
+    e.preventDefault();
+    const firstError = form.querySelector('.has-error');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+
+  return true; // Allow FormSubmit to handle the POST
+}
+
+// Set _next and _autoresponse dynamically to prevent Cloudflare interference
+document.getElementById('contactForm').addEventListener('submit', function() {
+  var nextField = this.querySelector('[name="_next"]');
+  if (nextField) nextField.value = 'https://pekari.github.io/anticalc-svec/dekujeme.html';
+
+  var autoField = this.querySelector('[name="_autoresponse"]');
+  if (autoField) autoField.value = [
+    'Dobrý den,',
+    '',
+    'děkujeme za Váš zájem o fyzikální úpravnu vody ANTICALC®.',
+    'Vaši zprávu jsme přijali a budeme se jí věnovat.',
+    'Ozveme se Vám nejpozději nejbližší následující pracovní den.',
+    '',
+    'S pozdravem',
+    '',
+    'Václav Švec',
+    'autorizovaný prodejce ANTICALC®',
+    '',
+    'tel.: +420 775 578 992',
+    'e-mail: info@voda-svec.cz',
+    'web: https://pekari.github.io/anticalc-svec/'
+  ].join('\n');
+});
+
+// Remove error on input
+document.querySelectorAll('#contactForm [required]').forEach(field => {
+  field.addEventListener('input', () => {
+    field.closest('.form-group').classList.remove('has-error');
+  });
+});
+
+// INTERACTIVE MAP DATA
+const mapData = {
+  cz: [
+    { name: 'Praha', value: '1,8\u20132,5', cat: 'medium',
+      note: '<strong>Charakteristika:</strong> Převážně měkká až středně tvrdá voda. Lokálně tvrdší zejména na Vinohradech, Žižkově a\u00a0ve Strašnicích (až 2,2\u00a0mmol/l). Nejměkčí voda v\u00a0Praze\u00a04.<br><strong>Zdroj a\u00a0podloží:</strong> Hlavním zdrojem je úpravna vody Želivka (povrchová voda), doplněná podzemní vodou z\u00a0Káraného a\u00a0povrchovou vodou z\u00a0úpravny Podolí.' },
+    { name: 'Středočeský', value: '3,0\u20134,5', cat: 'very-hard',
+      note: '<strong>Charakteristika:</strong> Většinou tvrdá až velmi tvrdá voda. V\u00a0okolí Českého Brodu a\u00a0Tuchorazi dosahuje tvrdost až 4,7\u00a0mmol/l.<br><strong>Zdroj a\u00a0podloží:</strong> Přibližně 70\u00a0% pitné vody pochází z\u00a0podzemních zdrojů Severočeské křídy, jímaných v\u00a0lokalitě Mělnická Vrutice. Křídové sedimenty jsou bohaté na vápník.' },
+    { name: 'Jihočeský', value: '1,2\u20131,8', cat: 'soft',
+      note: '<strong>Charakteristika:</strong> Převážně měkká voda, přibližně poloviční tvrdost oproti Praze.<br><strong>Zdroj a\u00a0podloží:</strong> Povrchové vodní zdroje v\u00a0oblasti žulového (granitového) podloží Šumavy a\u00a0Novohradských hor, které vodu o\u00a0minerály příliš neobohacují.' },
+    { name: 'Plzeňský', value: '1,5\u20132,5', cat: 'medium',
+      note: '<strong>Charakteristika:</strong> Středně tvrdá voda s\u00a0výraznou variabilitou dle lokality.<br><strong>Zdroj a\u00a0podloží:</strong> Kombinace povrchových a\u00a0podzemních zdrojů. V\u00a0oblasti převládají krystalické horniny a\u00a0permokarbonské sedimenty. Město Plzeň zásobováno z\u00a0přehradních nádrží.' },
+    { name: 'Karlovarský', value: '0,7\u20131,5', cat: 'soft',
+      note: '<strong>Charakteristika:</strong> Měkká voda, jedna z\u00a0nejměkčích oblastí v\u00a0ČR.<br><strong>Zdroj a\u00a0podloží:</strong> Převážně povrchové zdroje. Podloží tvoří granity, ruly a\u00a0další krystalické horniny Krušných hor, které vodu výrazněji nemineralizují.' },
+    { name: 'Ústecký', value: '1,5\u20133,0', cat: 'medium',
+      note: '<strong>Charakteristika:</strong> Středně tvrdá voda s\u00a0velkou variabilitou – od měkké v\u00a0horských oblastech po tvrdší v\u00a0nížinách Polabí.<br><strong>Zdroj a\u00a0podloží:</strong> Smíšené zdroje. Severní část zásobena z\u00a0přehrad (měkčí), jižní část z\u00a0podzemních vod křídového útvaru (tvrdší).' },
+    { name: 'Liberecký', value: '0,8\u20131,5', cat: 'soft',
+      note: '<strong>Charakteristika:</strong> Měkká voda, díky horskému charakteru kraje.<br><strong>Zdroj a\u00a0podloží:</strong> Přehradní vody z\u00a0Jizerských hor a\u00a0Krkonoš. Podloží z\u00a0krystalických hornin (žuly, svory) vodu o\u00a0vápník prakticky neobohacuje.' },
+    { name: 'Královéhradecký', value: '1,5\u20134,0', cat: 'hard',
+      note: '<strong>Charakteristika:</strong> Tvrdá voda, lokálně velmi tvrdá. Např. ve Valdicích dosahuje tvrdost 4,07\u00a0mmol/l, naopak v\u00a0horských oblastech je voda měkčí.<br><strong>Zdroj a\u00a0podloží:</strong> Převážně kvalitní podzemní voda bohatá na minerály z\u00a0křídových sedimentů. Horské oblasti (Krkonoše) mají měkčí povrchovou vodu.' },
+    { name: 'Pardubický', value: '2,0\u20133,5', cat: 'hard',
+      note: '<strong>Charakteristika:</strong> Středně tvrdá až tvrdá voda. V\u00a0nížinách tvrdší, v\u00a0podhorských oblastech měkčí.<br><strong>Zdroj a\u00a0podloží:</strong> Podzemní zdroje z\u00a0křídového podloží Polabí a\u00a0Českomoravské vrchoviny. Křídové vápence obohacují vodu o\u00a0vápník a\u00a0hořčík.' },
+    { name: 'Vysočina', value: '1,5\u20132,5', cat: 'medium',
+      note: '<strong>Charakteristika:</strong> Středně tvrdá voda, vhodná pro běžné domácí použití.<br><strong>Zdroj a\u00a0podloží:</strong> Smíšené zdroje – povrchové i\u00a0podzemní. Granitoidní podloží Českomoravské vrchoviny, které vodu mineralizuje mírně.' },
+    { name: 'Jihomoravský', value: '2,5\u20134,5', cat: 'very-hard',
+      note: '<strong>Charakteristika:</strong> Tvrdá až velmi tvrdá voda, zejména v\u00a0oblasti Brna a\u00a0jižní Moravy. Jedna z\u00a0nejtvrdších oblastí v\u00a0ČR.<br><strong>Zdroj a\u00a0podloží:</strong> Podzemní zdroje z\u00a0vápencového podloží a\u00a0flyšových pásem Bílých Karpat. Vápence výrazně zvyšují obsah Ca a\u00a0Mg ve vodě.' },
+    { name: 'Olomoucký', value: '2,5\u20134,0', cat: 'hard',
+      note: '<strong>Charakteristika:</strong> Tvrdá voda, v\u00a0Olomouci a\u00a0okolí výrazně nad doporučenou hodnotou.<br><strong>Zdroj a\u00a0podloží:</strong> Podzemní zdroje z\u00a0jurských a\u00a0křídových vápenců Moravské brány. Horniny jsou bohaté na vápník, což se přímo projevuje na tvrdosti.' },
+    { name: 'Zlínský', value: '2,0\u20133,5', cat: 'hard',
+      note: '<strong>Charakteristika:</strong> Středně tvrdá až tvrdá voda, s\u00a0vyšší tvrdostí v\u00a0nížinných oblastech.<br><strong>Zdroj a\u00a0podloží:</strong> Flyšové sedimenty Bílých Karpat a\u00a0Beskyd. Smíšené povrchové i\u00a0podzemní zdroje, flyšové horniny obsahují vápnité složky.' },
+    { name: 'Moravskoslezský', value: '1,0\u20132,0', cat: 'medium',
+      note: '<strong>Charakteristika:</strong> Měkká až středně tvrdá voda, jedna z\u00a0měkčích oblastí na Moravě.<br><strong>Zdroj a\u00a0podloží:</strong> Převážně povrchová voda z\u00a0přehradních nádrží Šance a\u00a0Kružberk v\u00a0Beskydech. Horské povrchové vody mají nízký obsah minerálů.' }
+  ],
+  sk: [
+    { name: 'Bratislavský', value: '2,5\u20134,5', cat: 'very-hard',
+      note: '<strong>Charakteristika:</strong> Tvrdá až velmi tvrdá voda, zejména v\u00a0oblastech zásobovaných podzemními zdroji.<br><strong>Zdroj a\u00a0podloží:</strong> Podzemní vody z\u00a0Podunajské nížiny a\u00a0vápencového podloží Malých Karpat. Žitný ostrov je jednou z\u00a0největších zásobáren podzemní vody ve střední Evropě.' },
+    { name: 'Trnavský', value: '3,0\u20135,0', cat: 'very-hard',
+      note: '<strong>Charakteristika:</strong> Velmi tvrdá voda, jedna z\u00a0nejtvrdších oblastí na Slovensku.<br><strong>Zdroj a\u00a0podloží:</strong> Podzemní zdroje z\u00a0Žitného ostrova – rozsáhlá akumulace kvartérních štěrků a\u00a0písků, bohatě mineralizovaná vápníkem z\u00a0alpských sedimentů.' },
+    { name: 'Trenčiansky', value: '2,0\u20133,5', cat: 'hard',
+      note: '<strong>Charakteristika:</strong> Středně tvrdá až tvrdá voda s\u00a0variabilitou dle nadmořské výšky.<br><strong>Zdroj a\u00a0podloží:</strong> Podhorská oblast s\u00a0kombinací povrchových a\u00a0podzemních zdrojů. Vápencové a\u00a0dolomitické horniny Strážovských vrchů zvyšují tvrdost.' },
+    { name: 'Nitriansky', value: '2,5\u20134,5', cat: 'very-hard',
+      note: '<strong>Charakteristika:</strong> Tvrdá až velmi tvrdá voda, srovnatelná s\u00a0jižní Moravou.<br><strong>Zdroj a\u00a0podloží:</strong> Podunajská nížina, podzemní vody z\u00a0kvartérních usazenin bohatých na vápník. Nížinný charakter krajiny s\u00a0malým podílem povrchových zdrojů.' },
+    { name: 'Žilinský', value: '1,0\u20132,5', cat: 'medium',
+      note: '<strong>Charakteristika:</strong> Měkká až středně tvrdá voda, díky horskému charakteru kraje.<br><strong>Zdroj a\u00a0podloží:</strong> Horské prameny a\u00a0přehradní vody z\u00a0Malé a\u00a0Velké Fatry. Krystalické jádro pohoří vodu výrazněji nemineralizuje.' },
+    { name: 'Banskobystrický', value: '1,5\u20133,0', cat: 'medium',
+      note: '<strong>Charakteristika:</strong> Středně tvrdá voda, variabilní dle lokality – měkčí v\u00a0horách, tvrdší v\u00a0kotlinách.<br><strong>Zdroj a\u00a0podloží:</strong> Smíšené povrchové a\u00a0podzemní zdroje. Geologicky pestrá oblast – od vulkanitů Štiavnických vrchů po vápence Muráňské planiny.' },
+    { name: 'Prešovský', value: '1,0\u20132,5', cat: 'medium',
+      note: '<strong>Charakteristika:</strong> Měkká až středně tvrdá voda, zvláště v\u00a0horských oblastech Vysokých Tater a\u00a0Pienin.<br><strong>Zdroj a\u00a0podloží:</strong> Podhorské a\u00a0horské povrchové zdroje. Flyšové horniny a\u00a0krystalické jádro Tater dodávají vodě nízký obsah minerálů.' },
+    { name: 'Košický', value: '1,5\u20133,5', cat: 'hard',
+      note: '<strong>Charakteristika:</strong> Středně tvrdá až tvrdá voda, tvrdší v\u00a0nížinných oblastech Východoslovenské roviny.<br><strong>Zdroj a\u00a0podloží:</strong> Kombinace podzemních zdrojů z\u00a0Východoslovenské nížiny (tvrdší) a\u00a0krasových oblastí Slovenského krasu, kde vápencové podloží výrazně zvyšuje tvrdost.' }
+  ]
+};
+
+const bgMap = { soft: 'bg-soft', medium: 'bg-medium', hard: 'bg-hard', 'very-hard': 'bg-very-hard' };
+const catMap = { soft: 'cat-soft', medium: 'cat-medium', hard: 'cat-hard', 'very-hard': 'cat-very-hard' };
+const catLabel = { soft: 'Měkká', medium: 'Středně tvrdá', hard: 'Tvrdá', 'very-hard': 'Velmi tvrdá' };
+
+function renderMap(country) {
+  const grid = document.getElementById('mapGrid');
+  const data = mapData[country];
+  grid.innerHTML = data.map((r, i) => `
+    <div class="map-region ${bgMap[r.cat]}" onclick="toggleRegion(this)">
+      <div class="map-region-header">
+        <div>
+          <div class="map-region-name">${r.name}</div>
+          <div class="map-region-value">${r.value}</div>
+          <div class="map-region-cat ${catMap[r.cat]}">${catLabel[r.cat]}</div>
+        </div>
+        <div class="map-info-btn" title="Zobrazit detail">i</div>
+      </div>
+      <div class="map-region-note">${r.note}</div>
+    </div>
+  `).join('');
+}
+
+function toggleRegion(el) {
+  const wasActive = el.classList.contains('active');
+  document.querySelectorAll('.map-region').forEach(r => r.classList.remove('active'));
+  if (!wasActive) el.classList.add('active');
+}
+
+function switchCountry() {
+  const country = document.getElementById('countrySelect').value;
+  renderMap(country);
+  document.getElementById('mapSourceCz').style.display = country === 'cz' ? 'block' : 'none';
+  document.getElementById('mapSourceSk').style.display = country === 'sk' ? 'block' : 'none';
+}
+
+renderMap('cz');
+</script>
+</body>
+</html>
